@@ -6,7 +6,7 @@ const RefLetter = ({summary}) => {
   
   console.log(summary);
   return (
-    <div className="my-7">
+    <div className="my-24 p-7">
       <div className="card w-200 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="card-title my-7"> Past due Payment of LP Bills : FY 2022-2023 </h2>
@@ -38,13 +38,7 @@ const RefLetter = ({summary}) => {
               <td > {elements.lp_no}</td>
               <td class="text-right pr-10">{elements.amount.toFixed(2)}</td>
             </tr>
-          ))}
-       
-
-
-       
-
-       
+          ))} 
         </tbody>
       </table>
 

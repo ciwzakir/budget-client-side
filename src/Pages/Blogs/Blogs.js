@@ -1,16 +1,12 @@
 import React from "react";
 import PageTitle from "../../Components/PageTitle/PageTitle";
-import Expense from "../../Components/Expense/Expense";
-import FilterData from "../../Components/Expense/FilterData";
-
 
 const Blogs = () => {
   return (
     <div className="container mx-auto px-4 text-center my-24">
       <PageTitle title="Blogs-"></PageTitle>
       <div className="section">
-     <Expense></Expense>
-     <FilterData></FilterData>
+ 
 
       </div>
       <h1 className="text center text-5xl my-20">Frequently Asked Question</h1>

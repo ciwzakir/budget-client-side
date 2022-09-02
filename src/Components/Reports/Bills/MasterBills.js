@@ -5,6 +5,7 @@ import { DayPicker } from "react-day-picker";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import { DownloadTableExcel } from "react-export-table-to-excel";
+import Footer from "../../Footer/Footer";
 
 const MasterBills = () => {
   const tableRef = useRef(null);
@@ -39,9 +40,7 @@ const MasterBills = () => {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    
-    fetch(
-      `http://127.0.0.1:8000/exp/?ordering=expenditure_code&updated_at__gte=${format(
+    fetch(`https://zenithciw.pythonanywhere.com/exp/?ordering=expenditure_code&updated_at__gte=${format(
         startdate,
         "MM/dd/yyyy"
       )}&updated_at__lte=${format(enddate, "MM/dd/yyyy")}`
@@ -75,6 +74,7 @@ const MasterBills = () => {
 
   return (
     <div className="main-container">
+      <section><h1 className="my-7 text-3xl text-center"> Select your date in accordance with your requirements</h1></section>
       <section className="mt-48">
         <div className="hero min-h-full bg-base-200 ">
           <div className="hero-content flex-col lg:flex-row">
@@ -108,7 +108,7 @@ const MasterBills = () => {
             sheet="users"
             currentTableRef={tableRef.current}
           >
-            <button class="btn btn-outline">Download Excel</button>
+            <button class="btn btn-outline my-3">Download Excel</button>
           </DownloadTableExcel>
 
           <table ref={tableRef} className="table table-compact w-full">
@@ -132,10 +132,7 @@ const MasterBills = () => {
                 <tr expense={expense} key={expense.slug}>
                   <th className="text-center">{index + 1}</th>
                   <td> {expense.id}</td>
-                  <td className="text-left">
-           
-                    {expense.expenditure_code.name}
-                  </td>
+                  <td className="text-left">{expense.expenditure_code.name}</td>
                   <td className="text-left"> {expense.item_supplier.name}</td>
                   <td className="text-right"> {expense.get_prog_alts}</td>
                   <td className="text-right"> {expense.get_totals}</td>
@@ -144,12 +141,11 @@ const MasterBills = () => {
                   <td className="text-right"> {expense.get_paid_amount}</td>
                   <td className="text-center"> {expense.updated_at}</td>
                   <td className="text-center">
-           
                     <button
                       class="btn btn-outline btn-info"
                       onClick={() => navigateToSeeDetails(expense.id)}
                     >
-                      Details || {expense.get_children_length}
+                      Details || No of Bills {expense.get_children_length}
                     </button>
                   </td>
                 </tr>
@@ -173,6 +169,7 @@ const MasterBills = () => {
           />
         </div>
       </section>
+      <Footer></Footer>
     </div>
   );
 };

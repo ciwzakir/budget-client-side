@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
@@ -39,7 +38,7 @@ const SumAllotment = () => {
 
   useEffect(() => {
     fetch(
-      `http://127.0.0.1:8000/codes/?updated_at__gte=${format(
+      `https://zenithciw.pythonanywhere.com/codes/?updated_at__gte=${format(
         startdate,
         "MM/dd/yyyy"
       )}&updated_at__lte=${format(enddate, "MM/dd/yyyy")}`
@@ -65,8 +64,8 @@ const SumAllotment = () => {
   };
 
   const numAscendingData = [...currentExpenses].sort((a, b) =>
-  a.item_supplier?.name > b.item_supplier?.name ? 1 : -1,
-  ); 
+    a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
+  );
 
   var result = [];
   currentExpenses.reduce(function (res, value) {
@@ -88,9 +87,8 @@ const SumAllotment = () => {
     return res;
   }, {});
 
-
   const numAscendingSummary = [...result].sort((a, b) =>
-  a.item_supplier?.name > b.item_supplier?.name ? 1 : -1,
+    a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
   );
 
   console.log(currentExpenses);
@@ -126,7 +124,6 @@ const SumAllotment = () => {
         <div className="overflow-x-auto my-10 py-10">
           <h1 className="text-5xl my-10 text-center"> All Reports </h1>
 
- 
           <table ref={tableRef} className="table table-compact w-full">
             <thead className="text-center">
               <tr>
@@ -188,7 +185,12 @@ const SumAllotment = () => {
           sheet="Summaey Supplier"
           currentTableRef={tableRef.current}
         >
-         <div className="text-left my-7"> <button class="btn btn-outline btn-info text-left">Download Excel</button></div>
+          <div className="text-left my-7">
+            {" "}
+            <button class="btn btn-outline btn-info text-left">
+              Download Excel
+            </button>
+          </div>
         </DownloadTableExcel>
         <table ref={tableRef} className="table table-compact w-full">
           <thead className="text-center">
@@ -206,22 +208,15 @@ const SumAllotment = () => {
             </tr>
           </thead>
           <tbody>
-            {numAscendingSummary
-            .map((summary, index) => (
+            {numAscendingSummary.map((summary, index) => (
               <tr key={summary.item_supplier?.id}>
                 <th className="text-center">{index + 1}</th>
                 <td> {summary.id}</td>
                 <td className="text-left"> {summary.item_supplier?.name}</td>
-                <td className="text-left">
-                  {summary.item_supplier?.name}
-                </td>
-                <td className="text-left">
-                  {summary.item_supplier?.tin_no}
-                </td>
-                <td className="text-left">
-                  {summary.item_supplier?.vat_no}
-                </td>
-             
+                <td className="text-left">{summary.item_supplier?.name}</td>
+                <td className="text-left">{summary.item_supplier?.tin_no}</td>
+                <td className="text-left">{summary.item_supplier?.vat_no}</td>
+
                 <td className="text-right px-10">
                   {summary.total_exp?.toFixed(2)}
                 </td>
@@ -229,12 +224,12 @@ const SumAllotment = () => {
                   {summary.total_tds?.toFixed(2)}
                 </td>
                 <td className="text-right px-10">
-                
                   {summary.total_vds?.toFixed(2)}
                 </td>
                 <td className="text-right px-10">
-                
-                  {summary.total_paid?.toFixed(2).toLocaleString(undefined, {maximumFractionDigits:2})}
+                  {summary.total_paid
+                    ?.toFixed(2)
+                    .toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </td>
               </tr>
             ))}

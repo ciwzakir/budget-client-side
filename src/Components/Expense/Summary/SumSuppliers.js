@@ -39,7 +39,7 @@ const SumSuppliers = () => {
 
   useEffect(() => {
     fetch(
-      `http://127.0.0.1:8000/codes/?updated_at__gte=${format(
+      `https://zenithciw.pythonanywhere.com/codes/?updated_at__gte=${format(
         startdate,
         "MM/dd/yyyy"
       )}&updated_at__lte=${format(enddate, "MM/dd/yyyy")}`
@@ -124,7 +124,7 @@ const SumSuppliers = () => {
 
       <section>
         <div className="overflow-x-auto my-10 py-10">
-          <h1 className="text-5xl my-10 text-center"> All Reports </h1>
+          <h1 className="text-5xl my-10 text-center"> All Data </h1>
 
           <table ref={tableRef} className="table table-compact w-full">
             <thead className="text-center">
@@ -136,7 +136,7 @@ const SumSuppliers = () => {
                 <th> Income Tax</th>
                 <th> VAT</th>
                 <th> Paid Amount</th>
-                <th> Payment Method</th>
+                <th> Update Date</th>
               </tr>
             </thead>
             <tbody>
@@ -230,19 +230,22 @@ const SumSuppliers = () => {
                 <td className="text-right px-10">
                   {summary.total_paid?.toFixed(2)}
                 </td>
-                <td className="text-center">
-                
-                </td>
+                <td className="text-center"></td>
               </tr>
             ))}
           </tbody>
         </table>
       </section>
       <section className="my-24">
-      <h1 className="text-5xl my-10 text-center"> Cheque Issue Letter to Supplier </h1>
-      {numAscendingSummary.map((summary) => (
-    <RefLetter key={summary.item_supplier?.id} summary={summary}></RefLetter>
-         
+        <h1 className="text-5xl my-10 text-center">
+          {" "}
+          Cheque Issue Letter to Supplier{" "}
+        </h1>
+        {numAscendingSummary.map((summary) => (
+          <RefLetter
+            key={summary.item_supplier?.id}
+            summary={summary}
+          ></RefLetter>
         ))}
       </section>
     </div>

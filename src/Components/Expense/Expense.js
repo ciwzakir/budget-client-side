@@ -39,7 +39,7 @@ const Expense = () => {
 
   useEffect(() => {
     fetch(
-      `http://127.0.0.1:8000/codes/?updated_at__gte=${format(
+      `https://zenithciw.pythonanywhere.com/codes/?updated_at__gte=${format(
         startdate,
         "MM/dd/yyyy"
       )}&updated_at__lte=${format(enddate, "MM/dd/yyyy")}`
@@ -65,8 +65,8 @@ const Expense = () => {
   };
 
   const numAscendingData = [...currentExpenses].sort((a, b) =>
-  a.expenditure_code?.name > b.expenditure_code?.name ? 1 : -1,
-  ); 
+    a.expenditure_code?.name > b.expenditure_code?.name ? 1 : -1
+  );
 
   var result = [];
   currentExpenses.reduce(function (res, value) {
@@ -91,9 +91,8 @@ const Expense = () => {
     return res;
   }, {});
 
-
   const numAscendingSummary = [...result].sort((a, b) =>
-  a.expenditure_code?.name > b.expenditure_code?.name ? 1 : -1,
+    a.expenditure_code?.name > b.expenditure_code?.name ? 1 : -1
   );
 
   console.log(currentExpenses);
@@ -203,7 +202,11 @@ const Expense = () => {
           sheet="Summaey Codes"
           currentTableRef={tableRef.current}
         >
-         <div className="text-left my-7"> <button class="btn btn-outline btn-info text-left">Download Excel</button></div>
+          <div className="text-left my-7">
+            <button class="btn btn-outline btn-info text-left">
+              Download Excel
+            </button>
+          </div>
         </DownloadTableExcel>
         <table ref={tableRef} className="table table-compact w-full">
           <thead className="text-center">
@@ -221,8 +224,7 @@ const Expense = () => {
             </tr>
           </thead>
           <tbody>
-            {numAscendingSummary
-            .map((summary, index) => (
+            {numAscendingSummary.map((summary, index) => (
               <tr key={summary.expenditure_code?.id}>
                 <th className="text-center">{index + 1}</th>
                 <td> {summary.id}</td>
@@ -243,11 +245,9 @@ const Expense = () => {
                   {summary.total_tds?.toFixed(2)}
                 </td>
                 <td className="text-right px-10">
-                
                   {summary.total_vds?.toFixed(2)}
                 </td>
                 <td className="text-right px-10">
-                
                   {summary.total_paid?.toFixed(2)}
                 </td>
               </tr>

@@ -22,51 +22,81 @@ import Users from "./Pages/Dashboard/Users/Users";
 import Payment from "./Pages/Dashboard/Payment";
 import MasterBills from "./Components/Reports/Bills/MasterBills";
 import SingleDetails from "./Components/Reports/Bills/SingleDetails";
+import ReportDashboard from "./Pages/Dashboard/Reports/ReportDashboard";
+import Expense from "./Components/Expense/Expense";
+import SumSuppliers from "./Components/Expense/Summary/SumSuppliers";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   return (
     <div className="App">
       <Header></Header>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/products" element={<Products/>} />
-        <Route path="/product/:productId" element={
-          <RequireAuth>
-            <Purchase></Purchase>
-          </RequireAuth>
-        } />
-          <Route path="/addproduct" element={
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route
+          path="/product/:productId"
+          element={
+            <RequireAuth>
+              <Purchase></Purchase>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/addproduct"
+          element={
             <RequireAuth>
               <AddProduct></AddProduct>
             </RequireAuth>
-          }/>
-          <Route path="/manageproducts" element={
+          }
+        />
+        <Route
+          path="/manageproducts"
+          element={
             <RequireAuth>
               <ManageProducts></ManageProducts>
             </RequireAuth>
-          }/>
-          <Route path="/dashboard" element={
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
             <RequireAuth>
               <Dashboard></Dashboard>
             </RequireAuth>
-          }> 
-            <Route index element={<MyOrders/>} ></Route>
-            <Route path="review" element={<MyReview/>} > </Route>
-            <Route path="profile" element={<Profile/>} > </Route>
-            <Route path="users" element={<Users/>} > </Route>
-            <Route path="payment/:id" element={<Payment/>} > </Route>
-          </Route>
-         
-        <Route path="/orders" element={
-          <RequireAuth>
-            <Orders></Orders>
-          </RequireAuth>
-        } />
-      
+          }
+        >
+          <Route index element={<MyOrders />}></Route>
+          <Route path="review" element={<MyReview />}></Route>
+          <Route path="profile" element={<Profile />}></Route>
+          <Route path="users" element={<Users />}></Route>
+          <Route path="payment/:id" element={<Payment />}></Route>
+        </Route>
+
+         <Route
+              path="/reports"
+              element={
+                <RequireAuth>
+                <ReportDashboard></ReportDashboard>
+                </RequireAuth>
+              }
+            >
+             <Route index element={<MasterBills/>}></Route>
+             <Route path="reports/:detailOfId" element={<SingleDetails />}> </Route>
+             <Route path="codes" element={<Expense/>}> </Route>
+             <Route path="suppliers" element={<SumSuppliers/>}> </Route>
+        </Route> 
+
+        <Route
+          path="/orders"
+          element={
+            <RequireAuth>
+              <Orders></Orders>
+            </RequireAuth>
+          }
+        />
 
         <Route path="/blogs" element={<Blogs />} />
-        <Route path="/reports" element={<MasterBills />} />
-        <Route path="/reports/:detailOfId" element={<SingleDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reviews" element={<Reviews />} />
@@ -75,7 +105,7 @@ function App() {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
+      <Footer></Footer>
     </div>
   );
 }

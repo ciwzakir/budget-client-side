@@ -28,8 +28,16 @@ Github Server side Link [Click Here](https://github.com/programming-hero-web-cou
   - Nodemon
   - dotenv
   - jwt
-  - React Stripe
+  - Django
+  - Django Rest Framework
+  - Django corse Header
+  
 
 - Used Email& Pass
   - zenithciw@gmail.com
   - pass :123456
+  - pass :123456
+  - npm run build
+  - pass :firebase deploy
+  - pass :123456
+  
