@@ -1,0 +1,8 @@
+.socialLoginForm-container{
+    margin: 0 auto;
+    width: 50%;
+}
+.socialLoginForm-container button{
+    display: block;
+    width: 250px;
+}

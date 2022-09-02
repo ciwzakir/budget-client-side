@@ -1,0 +1,25 @@
+
+  .cont-footer ul {
+    list-style: none;
+  }
+  .payment-method {
+    margin-top: -40px;
+    margin-left: 50px;
+    padding-left: 100px;
+
+  }
+  .payment-method ul {
+    margin-left: -40px;
+  }
+  .sign-margin {
+    margin-bottom: 20px;
+  
+  }
+  .signature {
+    font-size: 18;
+  
+  }
+
+  .countermargin{
+    margin-top: 100px;
+  }

@@ -1,0 +1,35 @@
+.pagination{
+  list-style: none; 
+  text-decoration: none;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  font-size: 20px;
+  gap: 5px;
+}
+.pagination .page-number{
+ padding: 8px 15px;
+ cursor: pointer;
+ border-radius: 4px;
+ font-weight: 400;
+ list-style: none; 
+ text-decoration: none;
+}
+
+.pagination .page-number:hover{
+background-color: #5ab1bb;
+color:#ffffff;
+}
+.pagination .active{
+background-color: #5ab1bb;
+text-decoration: underline;
+text-decoration-color: yellow;
+}
+#test-table-xls-button{
+background-color: #08dff7;
+margin: 20px 0px;
+padding: 5px 25px;
+counter-reset: black;
+
+}
