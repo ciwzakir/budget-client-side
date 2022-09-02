@@ -4,9 +4,9 @@ import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import ReactPaginate from "react-paginate";
-import RefLetter from "./RefLetter";
 
-const SumSuppliers = () => {
+
+const SumOfCodes = () => {
   const tableRef = useRef(null);
   const [startdate, setStartdate] = useState(new Date());
   const [enddate, setEnddate] = useState(new Date());
@@ -70,22 +70,25 @@ const SumSuppliers = () => {
 
   var result = [];
   currentExpenses.reduce(function (res, value) {
-    if (!res[value.item_supplier.id]) {
-      res[value.item_supplier.id] = {
-        id: value.item_supplier.id,
-        transactions: value.transactions,
+    if (!res[value.expenditure_code.id]) {
+      res[value.expenditure_code.id] = {
+        id: value.expenditure_code.id,
+        get_current_prog_of_allotment: 0,
         total_exp: 0,
         total_tds: 0,
         total_vds: 0,
         total_paid: 0,
+        your_current_balance: 0,
       };
-      result.push(res[value.item_supplier.id]);
+      result.push(res[value.expenditure_code.id]);
     }
-    res[value.item_supplier.id].item_supplier = value?.item_supplier;
-    res[value.item_supplier.id].total_exp += value?.total_exp;
-    res[value.item_supplier.id].total_tds += value?.total_tds;
-    res[value.item_supplier.id].total_vds += value?.total_vds;
-    res[value.item_supplier.id].total_paid += value?.total_paid;
+    res[value.expenditure_code.id].expenditure_code = value?.expenditure_code;
+    res[value.expenditure_code.id].get_current_prog_of_allotment = value?.expenditure_code?.get_current_prog_of_allotment;
+    res[value.expenditure_code.id].total_exp += value?.total_exp;
+    res[value.expenditure_code.id].total_tds += value?.total_tds;
+    res[value.expenditure_code.id].total_vds += value?.total_vds;
+    res[value.expenditure_code.id].total_paid += value?.total_paid;
+    res[value.expenditure_code.id].your_current_balance = value?.expenditure_code?.your_current_balance ;
     return res;
   }, {});
 
@@ -130,11 +133,14 @@ const SumSuppliers = () => {
             <thead className="text-center">
               <tr>
                 <th> Ser No</th>
-                <th> Supplier ID</th>
-                <th> Supplier Name</th>
-                <th> Total Exp</th>
-                <th> Income Tax</th>
-                <th> VAT</th>
+                <th> Code ID</th>
+                <th> Code Name</th>
+                <th> Digital Code</th>
+                <th> Heading</th>
+                <th> V Head</th>
+                <th> Total Bill</th>
+                <th> TDS Amount</th>
+                <th> VDS Amount</th>
                 <th> Paid Amount</th>
                 <th> Update Date</th>
               </tr>
@@ -143,8 +149,11 @@ const SumSuppliers = () => {
               {numAscendingData.map((expense, index) => (
                 <tr expense={expense} key={expense.slug}>
                   <th className="text-center">{index + 1}</th>
-                  <td> {expense.item_supplier.id}</td>
-                  <td className="text-left"> {expense.item_supplier?.name}</td>
+                  <td> {expense.expenditure_code.id}</td>
+                  <td className="text-left"> {expense.expenditure_code?.name}</td>
+                  <td className="text-left"> {expense.expenditure_code?.seven_digit_code}</td>
+                  <td className="text-left"> {expense.expenditure_code?.heading}</td>
+                  <td className="text-left"> {expense.expenditure_code?.voucher_head}</td>
                   <td className="text-right px-10">
                     {expense.total_exp?.toFixed(2)}
                   </td>
@@ -158,7 +167,7 @@ const SumSuppliers = () => {
                     {expense.total_paid?.toFixed(2)}
                     {/* {expense.total_paid?.toLocaleString(undefined, {maximumFractionDigits:2})} */}
                   </td>
-                  <td className="text-center"> {expense.updated_at}</td>
+                  <td className="text-center">   {expense?.updated_at}</td>
                 </tr>
               ))}
             </tbody>
@@ -181,7 +190,7 @@ const SumSuppliers = () => {
         </div>
       </section>
       <section>
-        <h1 className="text-5xl my-10 text-center"> Summary asper Supplier </h1>
+        <h1 className="text-5xl my-10 text-center"> Current Fund Position </h1>
         <DownloadTableExcel
           filename="Simmary Asper Supplier"
           sheet="Summaey Supplier"
@@ -196,28 +205,33 @@ const SumSuppliers = () => {
         <table ref={tableRef} className="table table-compact w-full">
           <thead className="text-center">
             <tr>
-              <th> Ser No</th>
-              <th> ID</th>
-              <th> Full Name</th>
-              <th> Budget Code</th>
-              <th> Code Heading</th>
-              <th> Total Allotments</th>
-              <th> Total Expenditure</th>
-              <th> Income Tax</th>
-              <th> VAT</th>
-              <th> Paid</th>
+            <th> Ser No</th>
+                <th> Code Name</th>
+                <th> Code ID</th>
+                <th> Digital Code</th>
+                <th> Heading</th>
+                <th> V Head</th>
+                <th> Total Allotment</th>
+                <th> Total Exp </th>
+                <th> Total TDS </th>
+                <th> Total VDS </th>
+                <th> Total Paid </th>
+                <th> Total Balance</th>
             </tr>
           </thead>
           <tbody>
             {numAscendingSummary.map((summary, index) => (
-              <tr key={summary.item_supplier?.id} summary={summary}>
+              <tr key={summary.expenditure_code?.id} summary={summary}>
                 <th className="text-center">{index + 1}</th>
                 <td> {summary.id}</td>
-                <td className="text-left"> {summary.item_supplier?.name}</td>
-                <td className="text-left">{summary.item_supplier?.name}</td>
-                <td className="text-left">{summary.item_supplier?.tin_no}</td>
-                <td className="text-left">{summary.item_supplier?.vat_no}</td>
+                <td className="text-left"> {summary.expenditure_code?.name}</td>
+                <td className="text-left">{summary.expenditure_code?.seven_digit_code}</td>
+                <td className="text-left">{summary.expenditure_code?.heading}</td>
+                <td className="text-left">{summary.expenditure_code?.voucher_head}</td>
 
+                <td className="text-right px-10">
+                  {summary?.get_current_prog_of_allotment?.toFixed(2)}
+                </td>
                 <td className="text-right px-10">
                   {summary.total_exp?.toFixed(2)}
                 </td>
@@ -230,13 +244,13 @@ const SumSuppliers = () => {
                 <td className="text-right px-10">
                   {summary.total_paid?.toFixed(2)}
                 </td>
-                <td className="text-center"></td>
+                <td className="text-center"> {summary?.your_current_balance?.toFixed(2)} </td>
               </tr>
             ))}
           </tbody>
         </table>
       </section>
-      <section className="my-24">
+      {/* <section className="my-24">
         <h1 className="text-5xl my-10 text-center">
           Cheque Issue Letter to Supplier
         </h1>
@@ -246,9 +260,9 @@ const SumSuppliers = () => {
             summary={summary}
           ></RefLetter>
         ))}
-      </section>
+      </section> */}
     </div>
   );
 };
 
-export default SumSuppliers;
+export default SumOfCodes;

@@ -3,7 +3,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="footer footer-center p-10 bg-neutral text-neutral-content ">
+    <footer className="footer footer-center p-10 bg-neutral text-neutral-content mt-24 ">
     <div>
       <p>Copyright &copy; 2022 - All right reserved by Publisher</p>
     </div>

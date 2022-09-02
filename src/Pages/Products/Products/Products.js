@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SumSuppliers from "../../../Components/Expense/Summary/SumSuppliers";
+
 import PageTitle from "../../../Components/PageTitle/PageTitle";
 import UseProducts from "../../../Hooks/UseProducts";
 import SingleProduct from "../SingleProduct/SingleProduct";
@@ -19,8 +19,7 @@ const Products = () => {
           <SingleProduct product={product} key={product.id}></SingleProduct>
         ))}
       </div>
-      <SumSuppliers></SumSuppliers>
-
+     
     </div>
   );
 };

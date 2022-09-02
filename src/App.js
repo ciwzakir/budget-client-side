@@ -26,6 +26,9 @@ import ReportDashboard from "./Pages/Dashboard/Reports/ReportDashboard";
 import Expense from "./Components/Expense/Expense";
 import SumSuppliers from "./Components/Expense/Summary/SumSuppliers";
 import Footer from "./Components/Footer/Footer";
+import Certificate from "./Components/Expense/Summary/Certificates";
+import RefLetter from "./Components/Expense/Summary/RefLetter";
+import SumOfCodes from "./Components/Expense/Summary/SumOfCodes";
 
 function App() {
   return (
@@ -84,7 +87,10 @@ function App() {
              <Route index element={<MasterBills/>}></Route>
              <Route path="reports/:detailOfId" element={<SingleDetails />}> </Route>
              <Route path="codes" element={<Expense/>}> </Route>
+             <Route path="fundposition" element={<SumOfCodes/>}> </Route>
              <Route path="suppliers" element={<SumSuppliers/>}> </Route>
+             <Route path="certificates" element={<Certificate/>}> </Route>
+             <Route path="forwarding" element={<RefLetter/>}> </Route>
         </Route> 
 
         <Route

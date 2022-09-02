@@ -11,9 +11,9 @@ const RefLetter = ({summary}) => {
         <div className="card-body">
           <h2 className="card-title my-7"> Past due Payment of LP Bills : FY 2022-2023 </h2>
         
-          <p> Dear   <span className="supplier-info py-7"> {item_supplier?.name} </span>  ,</p>
+          <p> Dear<span className="supplier-info px-2"> {item_supplier?.name} </span>  ,</p>
 
-          <p> We would like to inform you that we have issued a cheque bearing no  <span className="supplier-info">CDB 7283866 </span> dated <span className="supplier-info"> 22 Aug 2022 </span>  amounting Tk. <span className="supplier-info"> {total_paid} </span> &#40; One crore one lac one thousand one hindred one only &#41; for the supply of your products/ Goods. Asper govt. rules tk. <span className="supplier-info"> {total_tds} </span> as income Tax and Tk. <span className="supplier-info"> {total_vds} </span> as VAT has/ have been deducted from your total bill/ bills &#40;<span className="supplier-info"> {total_exp} </span> &#41; . Details of your invoice is/are as under. </p>
+          <p className="pr-24"> We would like to inform you that we have issued a cheque bearing no  <span className="supplier-info">CDB 7283866 </span> dated <span className="supplier-info"> 22 Aug 2022 </span>  amounting Tk. <span className="supplier-info"> {total_paid} </span> &#40; One crore one lac one thousand one hindred one only &#41; for the supply of your products/ Goods. Asper govt. rules tk. <span className="supplier-info"> {total_tds} </span> as income Tax and Tk. <span className="supplier-info"> {total_vds} </span> as VAT has/ have been deducted from your total bill/ bills &#40;<span className="supplier-info"> {total_exp} </span> &#41; . Details of your invoice is/are as under. </p>
 
           <table id="table-to-xls" className="table table-compact w-3/4 my-10 ml-10">
         <thead className="text-center">

@@ -5,7 +5,7 @@ import { DayPicker } from "react-day-picker";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import { DownloadTableExcel } from "react-export-table-to-excel";
-import Footer from "../../Footer/Footer";
+
 
 const MasterBills = () => {
   const tableRef = useRef(null);
@@ -40,7 +40,8 @@ const MasterBills = () => {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    fetch(`https://zenithciw.pythonanywhere.com/exp/?ordering=expenditure_code&updated_at__gte=${format(
+    fetch(
+      `https://zenithciw.pythonanywhere.com/exp/?ordering=expenditure_code&updated_at__gte=${format(
         startdate,
         "MM/dd/yyyy"
       )}&updated_at__lte=${format(enddate, "MM/dd/yyyy")}`
@@ -74,8 +75,11 @@ const MasterBills = () => {
 
   return (
     <div className="main-container">
-      <section><h1 className="my-7 text-3xl text-center"> Select your date in accordance with your requirements</h1></section>
-      <section className="mt-48">
+   
+      <section>
+   
+      </section>
+      <section className="my-24 py-20">
         <div className="hero min-h-full bg-base-200 ">
           <div className="hero-content flex-col lg:flex-row">
             <div className="text-center mr-12">
@@ -145,7 +149,7 @@ const MasterBills = () => {
                       class="btn btn-outline btn-info"
                       onClick={() => navigateToSeeDetails(expense.id)}
                     >
-                      Details || No of Bills {expense.get_children_length}
+                      Details || Including {expense.get_children_length} <span className="px-3">{expense.get_children_length > 1 ? "bills" : "bill"}</span>
                     </button>
                   </td>
                 </tr>
@@ -169,7 +173,7 @@ const MasterBills = () => {
           />
         </div>
       </section>
-      <Footer></Footer>
+  
     </div>
   );
 };
