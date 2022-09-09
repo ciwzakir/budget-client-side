@@ -4,8 +4,9 @@ import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import ReactPaginate from "react-paginate";
+import "./Exp.css";
 
-const SumAllotment = () => {
+const Expense = () => {
   const tableRef = useRef(null);
   const [startdate, setStartdate] = useState(new Date());
   const [enddate, setEnddate] = useState(new Date());
@@ -64,31 +65,34 @@ const SumAllotment = () => {
   };
 
   const numAscendingData = [...currentExpenses].sort((a, b) =>
-    a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
+    a.expenditure_code?.name > b.expenditure_code?.name ? 1 : -1
   );
 
   var result = [];
   currentExpenses.reduce(function (res, value) {
-    if (!res[value.item_supplier.id]) {
-      res[value.item_supplier.id] = {
-        id: value.item_supplier.id,
+    if (!res[value.expenditure_code.id]) {
+      res[value.expenditure_code.id] = {
+        id: value.expenditure_code.id,
+        total_allotments_codewise: 0,
         total_exp: 0,
         total_tds: 0,
         total_vds: 0,
         total_paid: 0,
       };
-      result.push(res[value.item_supplier.id]);
+      result.push(res[value.expenditure_code.id]);
     }
-    res[value.item_supplier.id].item_supplier = value?.item_supplier;
-    res[value.item_supplier.id].total_exp += value?.total_exp;
-    res[value.item_supplier.id].total_tds += value?.total_tds;
-    res[value.item_supplier.id].total_vds += value?.total_vds;
-    res[value.item_supplier.id].total_paid += value?.total_paid;
+    res[value.expenditure_code.id].expenditure_code = value?.expenditure_code;
+    res[value.expenditure_code.id].total_allotments_codewise =
+      value?.total_allotments_codewise;
+    res[value.expenditure_code.id].total_exp += value?.total_exp;
+    res[value.expenditure_code.id].total_tds += value?.total_tds;
+    res[value.expenditure_code.id].total_vds += value?.total_vds;
+    res[value.expenditure_code.id].total_paid += value?.total_paid;
     return res;
   }, {});
 
   const numAscendingSummary = [...result].sort((a, b) =>
-    a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
+    a.expenditure_code?.name > b.expenditure_code?.name ? 1 : -1
   );
 
   console.log(currentExpenses);
@@ -124,12 +128,20 @@ const SumAllotment = () => {
         <div className="overflow-x-auto my-10 py-10">
           <h1 className="text-5xl my-10 text-center"> All Reports </h1>
 
+          {/* <DownloadTableExcel
+            filename="All Data table"
+            sheet="All"
+            currentTableRef={tableRef.current}
+          >
+       <div className="text-left my-7"> <button className="btn btn-outline btn-info text-left">Download Excel</button></div>
+          </DownloadTableExcel> */}
           <table ref={tableRef} className="table table-compact w-full">
             <thead className="text-center">
               <tr>
                 <th> Ser No</th>
                 <th> FK ID</th>
                 <th> EXP ID </th>
+                <th> Heading</th>
                 <th> Supplier</th>
                 <th> Total Exp</th>
                 <th> Income Tax</th>
@@ -142,7 +154,12 @@ const SumAllotment = () => {
               {numAscendingData.map((expense, index) => (
                 <tr expense={expense} key={expense.slug}>
                   <th className="text-center">{index + 1}</th>
-                  <td> {expense.item_supplier.id}</td>
+                  <td> {expense.expenditure_code.id}</td>
+                  <td> {expense.id}</td>
+                  {/* <td className="text-left"> {expense.total_allotments_codewise}</td> */}
+                  <td className="text-left">
+                    {expense.expenditure_code?.name}
+                  </td>
                   <td className="text-left"> {expense.item_supplier?.name}</td>
                   <td className="text-right px-10">
                     {expense.total_exp?.toFixed(2)}
@@ -179,15 +196,14 @@ const SumAllotment = () => {
         </div>
       </section>
       <section>
-        <h1 className="text-5xl my-10 text-center"> Summary asper Supplier </h1>
+        <h1 className="text-5xl my-10 text-center"> Summary asper Codes </h1>
         <DownloadTableExcel
-          filename="Simmary Asper Supplier"
-          sheet="Summaey Supplier"
+          filename="Simmary Asper Codes"
+          sheet="Summaey Codes"
           currentTableRef={tableRef.current}
         >
           <div className="text-left my-7">
-            {" "}
-            <button class="btn btn-outline btn-info text-left">
+            <button className="btn btn-outline btn-info text-left">
               Download Excel
             </button>
           </div>
@@ -209,14 +225,19 @@ const SumAllotment = () => {
           </thead>
           <tbody>
             {numAscendingSummary.map((summary, index) => (
-              <tr key={summary.item_supplier?.id}>
+              <tr key={summary.expenditure_code?.id}>
                 <th className="text-center">{index + 1}</th>
                 <td> {summary.id}</td>
-                <td className="text-left"> {summary.item_supplier?.name}</td>
-                <td className="text-left">{summary.item_supplier?.name}</td>
-                <td className="text-left">{summary.item_supplier?.tin_no}</td>
-                <td className="text-left">{summary.item_supplier?.vat_no}</td>
-
+                <td className="text-left"> {summary.expenditure_code?.name}</td>
+                <td className="text-left">
+                  {summary.expenditure_code?.seven_digit_code}
+                </td>
+                <td className="text-left">
+                  {summary.expenditure_code?.heading}
+                </td>
+                <td className="text-right px-10">
+                  {summary.total_allotments_codewise?.toFixed(2)}
+                </td>
                 <td className="text-right px-10">
                   {summary.total_exp?.toFixed(2)}
                 </td>
@@ -227,9 +248,7 @@ const SumAllotment = () => {
                   {summary.total_vds?.toFixed(2)}
                 </td>
                 <td className="text-right px-10">
-                  {summary.total_paid
-                    ?.toFixed(2)
-                    .toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                  {summary.total_paid?.toFixed(2)}
                 </td>
               </tr>
             ))}
@@ -240,4 +259,4 @@ const SumAllotment = () => {
   );
 };
 
-export default SumAllotment;
+export default Expense;

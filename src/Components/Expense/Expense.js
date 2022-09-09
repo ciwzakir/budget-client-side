@@ -48,55 +48,6 @@ const Expense = () => {
       .then((data) => setExpenses(data));
   }, [startdate, enddate]);
 
-  const [currentExpenses, setCurrentExpenses] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 50;
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentExpenses(expenses.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(expenses.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, expenses]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % expenses.length;
-    setItemOffset(newOffset);
-  };
-
-  const numAscendingData = [...currentExpenses].sort((a, b) =>
-    a.expenditure_code?.name > b.expenditure_code?.name ? 1 : -1
-  );
-
-  var result = [];
-  currentExpenses.reduce(function (res, value) {
-    if (!res[value.expenditure_code.id]) {
-      res[value.expenditure_code.id] = {
-        id: value.expenditure_code.id,
-        total_allotments_codewise: 0,
-        total_exp: 0,
-        total_tds: 0,
-        total_vds: 0,
-        total_paid: 0,
-      };
-      result.push(res[value.expenditure_code.id]);
-    }
-    res[value.expenditure_code.id].expenditure_code = value?.expenditure_code;
-    res[value.expenditure_code.id].total_allotments_codewise =
-      value?.total_allotments_codewise;
-    res[value.expenditure_code.id].total_exp += value?.total_exp;
-    res[value.expenditure_code.id].total_tds += value?.total_tds;
-    res[value.expenditure_code.id].total_vds += value?.total_vds;
-    res[value.expenditure_code.id].total_paid += value?.total_paid;
-    return res;
-  }, {});
-
-  const numAscendingSummary = [...result].sort((a, b) =>
-    a.expenditure_code?.name > b.expenditure_code?.name ? 1 : -1
-  );
-
-  console.log(currentExpenses);
-  console.log(result);
   return (
     <div className="main-container">
       <section className="my-48">
@@ -133,7 +84,7 @@ const Expense = () => {
             sheet="All"
             currentTableRef={tableRef.current}
           >
-       <div className="text-left my-7"> <button class="btn btn-outline btn-info text-left">Download Excel</button></div>
+       <div className="text-left my-7"> <button className="btn btn-outline btn-info text-left">Download Excel</button></div>
           </DownloadTableExcel> */}
           <table ref={tableRef} className="table table-compact w-full">
             <thead className="text-center">
@@ -151,7 +102,7 @@ const Expense = () => {
               </tr>
             </thead>
             <tbody>
-              {numAscendingData.map((expense, index) => (
+              {expenses.map((expense, index) => (
                 <tr expense={expense} key={expense.slug}>
                   <th className="text-center">{index + 1}</th>
                   <td> {expense.expenditure_code.id}</td>
@@ -178,7 +129,7 @@ const Expense = () => {
               ))}
             </tbody>
           </table>
-          <ReactPaginate
+          {/* <ReactPaginate
             breakLabel="..."
             nextLabel="Next >"
             pageCount={pageCount}
@@ -192,7 +143,7 @@ const Expense = () => {
             previousLinkClassName="page-number"
             nextLinkClassName="page-number"
             pageLinkClassName="page-number"
-          />
+          /> */}
         </div>
       </section>
       <section>
@@ -203,7 +154,7 @@ const Expense = () => {
           currentTableRef={tableRef.current}
         >
           <div className="text-left my-7">
-            <button class="btn btn-outline btn-info text-left">
+            <button className="btn btn-outline btn-info text-left">
               Download Excel
             </button>
           </div>
@@ -224,7 +175,7 @@ const Expense = () => {
             </tr>
           </thead>
           <tbody>
-            {numAscendingSummary.map((summary, index) => (
+            {expenses.map((summary, index) => (
               <tr key={summary.expenditure_code?.id}>
                 <th className="text-center">{index + 1}</th>
                 <td> {summary.id}</td>

@@ -8,7 +8,6 @@ import { pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 const SingleDetails = () => {
-
   const { detailOfId } = useParams();
   const [expense, SetExpense] = useState({});
   useEffect(() => {
@@ -18,10 +17,8 @@ const SingleDetails = () => {
   }, [detailOfId]);
   return (
     <div className="wholecomponent">
-   
-    
       <div id="cont-bill" className="container mx-auto ">
-        <button class="btn btn-outline">Download PDF</button>
+        <button className="btn btn-outline">Download PDF</button>
         <BillHeader expense={expense} key={expense.id}></BillHeader>
         <BillBody expense={expense} key={expense.id}></BillBody>
         <BillFooter expense={expense} key={expense.id}></BillFooter>

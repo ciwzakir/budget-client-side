@@ -93,7 +93,6 @@ const Certificate = () => {
     a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
   );
 
-
   return (
     <div className="main-container">
       <section className="my-48">
@@ -121,7 +120,6 @@ const Certificate = () => {
         </div>
       </section>
 
-    
       <section>
         <h1 className="text-5xl my-10 text-center"> Summary asper Supplier </h1>
         <DownloadTableExcel
@@ -130,7 +128,7 @@ const Certificate = () => {
           currentTableRef={tableRef.current}
         >
           <div className="text-left my-7">
-            <button class="btn btn-outline btn-info text-left">
+            <button className="btn btn-outline btn-info text-left">
               Download Excel
             </button>
           </div>
@@ -177,9 +175,7 @@ const Certificate = () => {
         </table>
       </section>
       <section className="my-24">
-        <h1 className="text-5xl my-10 text-center">
-     
-        </h1>
+        <h1 className="text-2xl my-10 text-center"> Inacome TAX and VAT Certificates</h1>
         {numAscendingSummary.map((summary) => (
           <SingleCertificates
             key={summary.item_supplier?.id}

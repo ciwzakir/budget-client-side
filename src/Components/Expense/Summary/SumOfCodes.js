@@ -5,7 +5,6 @@ import { DayPicker } from "react-day-picker";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import ReactPaginate from "react-paginate";
 
-
 const SumOfCodes = () => {
   const tableRef = useRef(null);
   const [startdate, setStartdate] = useState(new Date());
@@ -21,7 +20,7 @@ const SumOfCodes = () => {
         <span className="text-info text-2xl px-3">
           {format(startdate, "PP")}
         </span>
-        .
+        
       </p>
     );
   }
@@ -36,6 +35,7 @@ const SumOfCodes = () => {
   }
 
   const [expenses, setExpenses] = useState([]);
+  const [] = expenses;
 
   useEffect(() => {
     fetch(
@@ -79,16 +79,23 @@ const SumOfCodes = () => {
         total_vds: 0,
         total_paid: 0,
         your_current_balance: 0,
+        total_balance: 0,
       };
       result.push(res[value.expenditure_code.id]);
     }
     res[value.expenditure_code.id].expenditure_code = value?.expenditure_code;
-    res[value.expenditure_code.id].get_current_prog_of_allotment = value?.expenditure_code?.get_current_prog_of_allotment;
+    res[
+      value.expenditure_code.id
+    ].expenditure_code.get_current_prog_of_allotment =
+      value?.expenditure_code?.get_current_prog_of_allotment;
     res[value.expenditure_code.id].total_exp += value?.total_exp;
     res[value.expenditure_code.id].total_tds += value?.total_tds;
     res[value.expenditure_code.id].total_vds += value?.total_vds;
     res[value.expenditure_code.id].total_paid += value?.total_paid;
-    res[value.expenditure_code.id].your_current_balance = value?.expenditure_code?.your_current_balance ;
+    res[value.expenditure_code.id].current_balance =
+      value?.expenditure_code?.current_balance;
+    res[value.expenditure_code.id].total_balance +=
+      value?.expenditure_code?.current_balance;
     return res;
   }, {});
 
@@ -150,10 +157,18 @@ const SumOfCodes = () => {
                 <tr expense={expense} key={expense.slug}>
                   <th className="text-center">{index + 1}</th>
                   <td> {expense.expenditure_code.id}</td>
-                  <td className="text-left"> {expense.expenditure_code?.name}</td>
-                  <td className="text-left"> {expense.expenditure_code?.seven_digit_code}</td>
-                  <td className="text-left"> {expense.expenditure_code?.heading}</td>
-                  <td className="text-left"> {expense.expenditure_code?.voucher_head}</td>
+                  <td className="text-left">
+                    {expense.expenditure_code?.name}
+                  </td>
+                  <td className="text-left">
+                    {expense.expenditure_code?.seven_digit_code}
+                  </td>
+                  <td className="text-left">
+                    {expense.expenditure_code?.heading}
+                  </td>
+                  <td className="text-left">
+                    {expense.expenditure_code?.voucher_head}
+                  </td>
                   <td className="text-right px-10">
                     {expense.total_exp?.toFixed(2)}
                   </td>
@@ -167,7 +182,7 @@ const SumOfCodes = () => {
                     {expense.total_paid?.toFixed(2)}
                     {/* {expense.total_paid?.toLocaleString(undefined, {maximumFractionDigits:2})} */}
                   </td>
-                  <td className="text-center">   {expense?.updated_at}</td>
+                  <td className="text-center"> {expense?.updated_at}</td>
                 </tr>
               ))}
             </tbody>
@@ -189,6 +204,47 @@ const SumOfCodes = () => {
           />
         </div>
       </section>
+
+      <section className="py-24 my-24">
+        <div className="hero min-h-full bg-base-200 py-32 my-24">
+          <div className="hero-content flex-col lg:flex-row">
+            <div className="statistics">
+              
+              <div className="stats bg-primary text-primary-content">
+                <div className="stat">
+                  <div className="stat-title">Current Balance</div>
+                  <div className="stat-value">$ <span>   {numAscendingSummary.expenditure_code?.current_balance}</span>   </div>
+               
+                </div>
+
+                <div className="stat">
+                  <div className="stat-actions">
+                    <button className="btn btn-sm">Allotment</button>
+                    <button className="btn btn-sm">Expense</button>
+                  </div>
+                </div>
+              </div>
+
+
+
+              
+            </div>
+            <div className="ml-11">
+              <h2 className="text-5xl font-bold">
+                Currnet Fund
+                <span className="text-green-800"> Position </span> 
+              </h2>
+              <p className="py-6">
+                First select from date and To date asper your requirements. Then
+                you will see here an automated reports of refunds in this
+                period. And you may acknowledge the following reference letters.
+              </p>
+              <button className="btn btn-primary"> See Bellow</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section>
         <h1 className="text-5xl my-10 text-center"> Current Fund Position </h1>
         <DownloadTableExcel
@@ -197,7 +253,7 @@ const SumOfCodes = () => {
           currentTableRef={tableRef.current}
         >
           <div className="text-left my-7">
-            <button class="btn btn-outline btn-info text-left">
+            <button className="btn btn-outline btn-info text-left">
               Download Excel
             </button>
           </div>
@@ -205,18 +261,18 @@ const SumOfCodes = () => {
         <table ref={tableRef} className="table table-compact w-full">
           <thead className="text-center">
             <tr>
-            <th> Ser No</th>
-                <th> Code Name</th>
-                <th> Code ID</th>
-                <th> Digital Code</th>
-                <th> Heading</th>
-                <th> V Head</th>
-                <th> Total Allotment</th>
-                <th> Total Exp </th>
-                <th> Total TDS </th>
-                <th> Total VDS </th>
-                <th> Total Paid </th>
-                <th> Total Balance</th>
+              <th> Ser No</th>
+              <th> Code ID</th>
+              <th> Code Name</th>
+              <th> Digital Code</th>
+              <th> Heading</th>
+              <th> V Head</th>
+              <th> Total Allotment</th>
+              <th> Total Exp </th>
+              <th> Total TDS </th>
+              <th> Total VDS </th>
+              <th> Total Paid </th>
+              <th> Total Balance</th>
             </tr>
           </thead>
           <tbody>
@@ -225,13 +281,20 @@ const SumOfCodes = () => {
                 <th className="text-center">{index + 1}</th>
                 <td> {summary.id}</td>
                 <td className="text-left"> {summary.expenditure_code?.name}</td>
-                <td className="text-left">{summary.expenditure_code?.seven_digit_code}</td>
-                <td className="text-left">{summary.expenditure_code?.heading}</td>
-                <td className="text-left">{summary.expenditure_code?.voucher_head}</td>
+                <td className="text-left">
+                  {summary.expenditure_code?.seven_digit_code}
+                </td>
+                <td className="text-left">
+                  {summary.expenditure_code?.heading}
+                </td>
+                <td className="text-left">
+                  {summary.expenditure_code?.voucher_head}
+                </td>
 
                 <td className="text-right px-10">
-                  {summary?.get_current_prog_of_allotment?.toFixed(2)}
+                  {summary.expenditure_code?.progress_of_allotments}
                 </td>
+
                 <td className="text-right px-10">
                   {summary.total_exp?.toFixed(2)}
                 </td>
@@ -244,7 +307,12 @@ const SumOfCodes = () => {
                 <td className="text-right px-10">
                   {summary.total_paid?.toFixed(2)}
                 </td>
-                <td className="text-center"> {summary?.your_current_balance?.toFixed(2)} </td>
+                {/* <td className="text-center">
+                  {summary?.your_current_balance?.toFixed(2)}
+                </td> */}
+                <td className="text-right px-10">
+                  {summary.expenditure_code?.current_balance}
+                </td>
               </tr>
             ))}
           </tbody>

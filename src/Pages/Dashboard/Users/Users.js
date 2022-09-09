@@ -48,13 +48,13 @@ const Users = () => {
               <td>{user.email}</td>
               <td>
                 {role !== "admin" && (
-                  <button onClick={makeAdmin} class="btn btn-info">
+                  <button onClick={makeAdmin} className="btn btn-info">
                     Make Admin
                   </button>
                 )}
               </td>
               <td>
-                <button class="btn btn-danger">Remove User</button>
+                <button className="btn btn-danger">Remove User</button>
               </td>
             </tr>
           ))}

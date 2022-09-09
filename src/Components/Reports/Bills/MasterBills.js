@@ -6,7 +6,6 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 
-
 const MasterBills = () => {
   const tableRef = useRef(null);
 
@@ -75,10 +74,7 @@ const MasterBills = () => {
 
   return (
     <div className="main-container">
-   
-      <section>
-   
-      </section>
+      <section></section>
       <section className="my-24 py-20">
         <div className="hero min-h-full bg-base-200 ">
           <div className="hero-content flex-col lg:flex-row">
@@ -112,7 +108,7 @@ const MasterBills = () => {
             sheet="users"
             currentTableRef={tableRef.current}
           >
-            <button class="btn btn-outline my-3">Download Excel</button>
+            <button className="btn btn-outline my-3">Download Excel</button>
           </DownloadTableExcel>
 
           <table ref={tableRef} className="table table-compact w-full">
@@ -146,10 +142,13 @@ const MasterBills = () => {
                   <td className="text-center"> {expense.updated_at}</td>
                   <td className="text-center">
                     <button
-                      class="btn btn-outline btn-info"
+                      className="btn btn-outline btn-info"
                       onClick={() => navigateToSeeDetails(expense.id)}
                     >
-                      Details || Including {expense.get_children_length} <span className="px-3">{expense.get_children_length > 1 ? "bills" : "bill"}</span>
+                      Details || Including {expense.get_children_length}{" "}
+                      <span className="px-3">
+                        {expense.get_children_length > 1 ? "bills" : "bill"}
+                      </span>
                     </button>
                   </td>
                 </tr>
@@ -173,7 +172,6 @@ const MasterBills = () => {
           />
         </div>
       </section>
-  
     </div>
   );
 };
