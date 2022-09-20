@@ -6,6 +6,7 @@ import PaginateSupplier from "./PaginateSupplier";
 import ReduceSupplier from "./ReduceSupplier";
 
 
+
 const SumSuppliers = () => {
   const [startdate, setStartdate] = useState(new Date());
   const [enddate, setEnddate] = useState(new Date());
@@ -38,7 +39,7 @@ const SumSuppliers = () => {
 
   useEffect(() => {
     fetch(
-      `https://zenithciw.pythonanywhere.com/codes/?updated_at__gte=${format(
+      `https://zenithciw.pythonanywhere.com/codes/?is_cheque=true&updated_at__gte=${format(
         startdate,
         "MM/dd/yyyy"
       )}&updated_at__lte=${format(enddate, "MM/dd/yyyy")}`
@@ -49,10 +50,25 @@ const SumSuppliers = () => {
 
   return (
     <div className="main-container">
-      <section className="my-48">
-        <div className="hero min-h-full bg-base-200 ">
+        <section className="mt-100">
+        <div className="hero min-h-full bg-base-200 py-32 my-24">
           <div className="hero-content flex-col lg:flex-row">
-            <div className="text-center mr-12">
+            <div className="ml-11">
+              <h2 className="text-5xl font-bold">
+                Suppliers'
+                <span className="text-green-800"> Information </span>
+              </h2>
+              <p className="py-12 text-1xl">
+               Here we will able to find the desired information about suppliers.   Here we will able to find the desired information about suppliers.   Here we will able to find the desired information about suppliers.  
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="my-48 pt-10">
+        <div className="hero min-h-full bg-base-200 pt-10 ">
+          <div className="hero-content flex-col lg:flex-row">
+            <div className="text-center mr-12 ">
               <h2 className="text-center text-xl"> Start Date</h2>
               <DayPicker
                 mode="single"
@@ -73,11 +89,10 @@ const SumSuppliers = () => {
           </div>
         </div>
       </section>
-
-       <section><PaginateSupplier expenses={expenses}></PaginateSupplier></section>
-
+      <section><PaginateSupplier expenses={expenses}></PaginateSupplier></section>
       <section> <ReduceSupplier expenses={expenses}> </ReduceSupplier></section>  
-      {/* <section> <Forwardings expenses={expenses}> </Forwardings></section>  */}
+  
+    
 
       
     </div>

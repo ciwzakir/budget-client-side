@@ -13,40 +13,42 @@ const Header = () => {
 
   const navbarItems = (
     <>
-      <li>
+    <li>
         <Link to="/">Home</Link>
       </li>
 
       <li>
         {/* {user && ( */}
-          <>
-            <li>
-              <Link to="/addproduct">Add Products</Link>
-            </li>
-            <li>
-              <Link to="/manageproducts">Manage Products</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-          </>
-        {/* // )} */}
+        <>
+          <li>
+            <Link to="/addproduct">Add Products</Link>
+          </li>
+          <li>
+            <Link to="/manageproducts">Manage Products</Link>
+          </li>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+        </>
+   
       </li>
       <li>
-      <>
-            <li>
-              <Link to="/reports">Reports</Link>
-            </li>
-
-          </>
-          
+        <>
+          <li>
+            <Link to="/reports">Reports</Link>
+          </li>
+        </>
+        {/* <>
+          <li>
+            <Link to="/study">My Leisure</Link>
+          </li>
+        </> */}
       </li>
 
       <li>
         <Link to="/register">Register</Link>
       </li>
 
-   
       <li>
         <Link to="/portfolio">Portfolio</Link>
       </li>
@@ -61,7 +63,7 @@ const Header = () => {
           </Link>
         )}
       </li>
-      
+
     </>
   );
   return (
@@ -91,12 +93,14 @@ const Header = () => {
             {navbarItems}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl" to="/">Eagle Camera House</Link>
+        <Link className="btn btn-ghost normal-case text-xl" to="/">
+          Eagle Camera House
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{navbarItems}</ul>
       </div>
-     
+
       <div className="navbar-end">
         <label
           tabIndex="1"

@@ -71,7 +71,6 @@ const Purchase = () => {
           />
 
           <label className="text-start">
-            {" "}
             Place Order between {minQty} and {maxQty}
           </label>
           <input

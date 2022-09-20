@@ -31,8 +31,10 @@ import SumOfCodes from "./Components/Expense/Summary/SumOfCodes";
 import AckAllotment from "./Components/Expense/Summary/AckAllotment";
 import AckRefunds from "./Components/Expense/Summary/AckRefunds";
 import Backend from "./Components/Expense/Summary/Backend";
-import store from './redux/Store'
-import { Provider } from 'react-redux'
+import Pronoun from "./Components/Educations/Grammar/Chapte-1/Pronouns";
+import EducationDashboard from "./Pages/Dashboard/Education/EducationDashboard";
+import Pronouns from "./Components/Educations/Grammar/Chapte-1/Pronouns";
+import Noun from "./Components/Educations/Grammar/Chapte-1/Noun";
 
 function App() {
   return (
@@ -91,7 +93,8 @@ function App() {
               }
             >
              <Route index element={<MasterBills/>}></Route>
-             <Route path="reports/:detailOfId" element={<SingleDetails />}> </Route>
+             {/* <Route path="reports/:detailOfId" element={<SingleDetails />}> </Route> */}
+             <Route path=":detailOfId" element={<SingleDetails />}> </Route>
              <Route path="codes" element={<Expense/>}> </Route>
              <Route path="fundposition" element={<SumOfCodes/>}> </Route>
              <Route path="suppliers" element={<SumSuppliers/>}> </Route>
@@ -101,6 +104,17 @@ function App() {
              <Route path="backend" element={<Backend/>}> </Route>
            
         </Route> 
+         {/* <Route
+              path="/study"
+              element={
+                <RequireAuth>
+                <EducationDashboard></EducationDashboard>
+                </RequireAuth>
+              }
+            >
+             <Route index element={<Pronouns/>}></Route>
+             <Route path="noun" element={<Noun />}> </Route>
+        </Route>  */}
 
         <Route
           path="/orders"

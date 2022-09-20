@@ -74,7 +74,26 @@ const MasterBills = () => {
 
   return (
     <div className="main-container">
-      <section></section>
+     
+     <section className="mt-100">
+        <div className="hero min-h-full bg-base-200 py-32 my-24">
+          <div className="hero-content flex-col lg:flex-row">
+            <div className="ml-11">
+              <h2 className="text-5xl font-bold">   All  
+                <span className="text-green-800 mx-2"> 
+              Expenditure 
+                </span>
+              </h2>
+              <p className="py-12 text-1xl">
+                Here we will able to see all expenditure. As well as we can see
+                details of single Bill. Here we will able to see all expenditure. As well as we can see
+                details of single Bill. Here we will able to see all expenditure. As well as we can see
+                details of single Bill.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="my-24 py-20">
         <div className="hero min-h-full bg-base-200 ">
           <div className="hero-content flex-col lg:flex-row">
@@ -102,7 +121,7 @@ const MasterBills = () => {
 
       <section>
         <div className="overflow-x-auto my-24 py-10">
-          <h1 className="text-5xl my-10 text-center"> Reports </h1>
+          <h1 className="text-5xl my-10 text-center"> Master Data </h1>
           <DownloadTableExcel
             filename="users table"
             sheet="users"
@@ -145,7 +164,7 @@ const MasterBills = () => {
                       className="btn btn-outline btn-info"
                       onClick={() => navigateToSeeDetails(expense.id)}
                     >
-                      Details || Including {expense.get_children_length}{" "}
+                      Details || Including {expense.get_children_length}
                       <span className="px-3">
                         {expense.get_children_length > 1 ? "bills" : "bill"}
                       </span>

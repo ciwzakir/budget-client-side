@@ -23,14 +23,14 @@ const ReportDashboard = () => {
         <label for="dashboard-sidebar" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content">
           <li><Link to="/reports">All Expenditure</Link> </li>
-          <li><Link to="/reports/codes">Monthly Report</Link></li>
+          <li><Link to="/reports/codes">As Per Codes</Link></li>
           <li><Link to="/reports/fundposition">Fund Position</Link></li>
-          <li><Link to="/reports/suppliers">Suppliers Info</Link> </li>
+          <li><Link to="/reports/suppliers">As Per Suppliers</Link> </li>
           <li><Link to="/reports/certificates">Certificates</Link> </li>
-          <li><Link to="/reports/forwarding">Cheque Forwarding</Link> </li>
+          {/* <li><Link to="/reports/forwarding">Cheque Forwarding</Link> </li> */}
           <li><Link to="acknowbgt">Ack Budget</Link> </li>
           <li><Link to="ackrefund">Act Bgt Refund</Link>  </li>
-          <li><Link to="backend">Admin Backend</Link>  </li>
+          <li><Link to="backend">Add More</Link>  </li>
         </ul>
       </div>
     </div>

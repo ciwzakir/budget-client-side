@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { DownloadTableExcel } from "react-export-table-to-excel";
-import ReactPaginate from "react-paginate";
+
 
 const ReduceSupplier = ({ expenses }) => {
   const tableRef = useRef(null);
@@ -26,49 +26,34 @@ const ReduceSupplier = ({ expenses }) => {
     return res;
   }, {});
 
-  //   const numAscendingSummary = [...result].sort((a, b) =>
-  //     a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
-  //   );
-
-  const [currentExpenses, setCurrentExpenses] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 5;
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentExpenses(result.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(result.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage,]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % result.length;
-    setItemOffset(newOffset);
-  };
+  const supplierAscendingInfo = [...result].sort((a, b) =>
+    a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
+  );
 
   return (
-    <div>
-      <h1 className="text-5xl my-10 text-center"> Summary asper Supplier </h1>
+    <div className="ml-48">
+      <h1 className="text-5xl my-10 text-center w-2/3">
+        Summary including Cash Payment
+      </h1>
       <DownloadTableExcel
         filename="Simmary Asper Supplier"
         sheet="Summaey Supplier"
         currentTableRef={tableRef.current}
       >
-        <div className="text-left my-7">
+        <div className="text-left my-7 ">
           <button className="btn btn-outline btn-info text-left">
             Download Excel
           </button>
         </div>
       </DownloadTableExcel>
-      <table ref={tableRef} className="table table-compact w-full">
+      <table ref={tableRef} className="table table-compact w-2/3  ">
         <thead className="text-center">
           <tr>
             <th> Ser No</th>
             <th> ID</th>
-            <th> Full Name</th>
-            <th> Budget Code</th>
-            <th> Code Heading</th>
-            <th> Total Allotments</th>
+            <th> Supplier Name</th>
+            <th> eTIN No</th>
+            <th> VAT or BIN No</th>
             <th> Total Expenditure</th>
             <th> Income Tax</th>
             <th> VAT</th>
@@ -76,12 +61,11 @@ const ReduceSupplier = ({ expenses }) => {
           </tr>
         </thead>
         <tbody>
-          {currentExpenses.map((summary, index) => (
+          {supplierAscendingInfo.map((summary, index) => (
             <tr key={summary.item_supplier?.id} summary={summary}>
               <th className="text-center">{index + 1}</th>
               <td> {summary.id}</td>
               <td className="text-left"> {summary.item_supplier?.name}</td>
-              <td className="text-left">{summary.item_supplier?.name}</td>
               <td className="text-left">{summary.item_supplier?.tin_no}</td>
               <td className="text-left">{summary.item_supplier?.vat_no}</td>
 
@@ -102,21 +86,7 @@ const ReduceSupplier = ({ expenses }) => {
           ))}
         </tbody>
       </table>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="Next >"
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        marginPagesDisplayed={3}
-        pageRangeDisplayed={5}
-        previousLabel="< Previous"
-        renderOnZeroPageCount={null}
-        containerClassName="pagination"
-        activeLinkClassName="active"
-        previousLinkClassName="page-number"
-        nextLinkClassName="page-number"
-        pageLinkClassName="page-number"
-      />
+   
     </div>
   );
 };

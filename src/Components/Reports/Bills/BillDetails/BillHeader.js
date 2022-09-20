@@ -78,12 +78,12 @@ const BillHeader = ({ expense }) => {
             <div className="basis-3/12">Balance</div>
             <div className="basis-2/12">:</div>
             <div className="basis-7/12">
-              {expenditure_code?.your_current_balance}
+              {expenditure_code?.current_balance}
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-row text-left">
+      <div className="flex flex-row text-left mb-7">
         <div className="basis-1/2">
           <div className="flex flex-row">
             <div className="basis-3/12">Auth</div>

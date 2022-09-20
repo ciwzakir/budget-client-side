@@ -1,24 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 import BillBody from "./BillDetails/BillBody";
 import BillFooter from "./BillDetails/BillFooter";
 import BillHeader from "./BillDetails/BillHeader";
 import "./Single.css";
-import { pdfjs } from "react-pdf";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 const SingleDetails = () => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle : 'Print Now',
+    onAfterPrint: alert('Printed Successfully')
+
+  });
   const { detailOfId } = useParams();
   const [expense, SetExpense] = useState({});
+
   useEffect(() => {
     fetch(`https://zenithciw.pythonanywhere.com/exp/${detailOfId}`)
       .then((res) => res.json())
       .then((data) => SetExpense(data));
   }, [detailOfId]);
+
   return (
     <div className="wholecomponent">
-      <div id="cont-bill" className="container mx-auto ">
-        <button className="btn btn-outline">Download PDF</button>
+    
+      <button onClick={handlePrint} className="ml-48">Print this out!</button>
+
+
+      <div id="cont-bill" className="container mx-auto " ref={componentRef}  >
         <BillHeader expense={expense} key={expense.id}></BillHeader>
         <BillBody expense={expense} key={expense.id}></BillBody>
         <BillFooter expense={expense} key={expense.id}></BillFooter>

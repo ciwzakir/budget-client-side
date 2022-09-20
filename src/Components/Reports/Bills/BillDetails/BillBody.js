@@ -57,18 +57,18 @@ const BillBody = ({ expense }) => {
             </tr>
           ))}
           <tr>
-            <td colspan="5" className="text-right pr-10">
+            <td colSpan="5" className="text-right pr-10">
               Total =
             </td>
             <td className="text-right pr-10"> {get_totals?.toFixed(2)}</td>
           </tr>
 
           <tr>
-            <td colspan="2 ">
+            <td colSpan="2 ">
               Page No: {item_supplier?.regpage_no} and {get_page_no}
             </td>
 
-            <td colspan="3">
+            <td colSpan="3">
               - Income TAX @
               {taxrate > 0 ? (
                 <span>{taxrate}</span>
@@ -82,8 +82,8 @@ const BillBody = ({ expense }) => {
           </tr>
 
           <tr className="text-start ">
-            <td colspan="2"> Ser No {get_serial_no}</td>
-            <td colspan="3">
+            <td colSpan="2"> Ser No {get_serial_no}</td>
+            <td colSpan="3">
               - VAT @
               {vatrate > 0 ? (
                 <span>{vatrate}</span>
@@ -94,13 +94,12 @@ const BillBody = ({ expense }) => {
             </td>
 
             <td className="text-right pr-10">
-              {" "}
               {get_value_added_tax?.toFixed(2)}
             </td>
           </tr>
 
           <tr>
-            <td colspan="5" className="text-right pr-2"></td>
+            <td colSpan="5" className="text-right pr-2"></td>
             <td className="text-right pr-10"> {get_paid_amount?.toFixed(2)}</td>
           </tr>
         </tbody>

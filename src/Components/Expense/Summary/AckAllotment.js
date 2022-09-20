@@ -67,6 +67,30 @@ const AckAllotment = () => {
 
   return (
     <div className="main-container">
+      <section>
+        <div className="hero min-h-full bg-base-200 py-32 my-24">
+          <div className="hero-content flex-col lg:flex-row">
+            <ul className="steps">
+              <li className="step step-primary"> From Date</li>
+              <li className="step step-primary"> To Date</li>
+              <li className="step step-primary"> Results Bellow</li>
+            </ul>
+            <div className="ml-11">
+              <h2 className="text-5xl font-bold">
+                Acknowledge of
+                <span className="text-green-800 mx-2">Approved</span>
+                allotments
+              </h2>
+              <p className="py-6">
+                First select from date and To date asper your requirements. Then
+                you will see here an automated reports of refunds in this
+                period. And you may acknowledge the following reference letters.
+              </p>
+              <button className="btn btn-primary"> See Bellow</button>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="my-48">
         <div className="hero min-h-full bg-base-200 ">
           <div className="hero-content flex-col lg:flex-row">
@@ -91,30 +115,7 @@ const AckAllotment = () => {
           </div>
         </div>
       </section>
-      <section>
-        <div className="hero min-h-full bg-base-200 py-32 my-24">
-          <div className="hero-content flex-col lg:flex-row">
-            <ul className="steps">
-              <li className="step step-primary"> From Date</li>
-              <li className="step step-primary"> To Date</li>
-              <li className="step step-primary"> Results Bellow</li>
-            </ul>
-            <div className="ml-11">
-              <h2 className="text-5xl font-bold">
-                Acknowledge of{" "}
-                <span className="text-green-800 mx-1">Approved</span>
-                allotments
-              </h2>
-              <p className="py-6">
-                First select from date and To date asper your requirements. Then
-                you will see here an automated reports of refunds in this
-                period. And you may acknowledge the following reference letters.
-              </p>
-              <button className="btn btn-primary"> See Bellow</button>
-            </div>
-          </div>
-        </div>
-      </section>
+
       <section className="my-48">
         <div className="overflow-x-auto  py-10 w-1/2 ml-24">
           <p>

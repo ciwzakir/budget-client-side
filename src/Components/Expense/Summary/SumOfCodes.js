@@ -4,6 +4,9 @@ import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import ReactPaginate from "react-paginate";
+import RefLetter from "./RefLetter";
+
+
 
 const SumOfCodes = () => {
   const tableRef = useRef(null);
@@ -20,7 +23,6 @@ const SumOfCodes = () => {
         <span className="text-info text-2xl px-3">
           {format(startdate, "PP")}
         </span>
-        
       </p>
     );
   }
@@ -35,7 +37,6 @@ const SumOfCodes = () => {
   }
 
   const [expenses, setExpenses] = useState([]);
-  const [] = expenses;
 
   useEffect(() => {
     fetch(
@@ -51,7 +52,7 @@ const SumOfCodes = () => {
   const [currentExpenses, setCurrentExpenses] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 50;
+  const itemsPerPage = 5;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -64,12 +65,12 @@ const SumOfCodes = () => {
     setItemOffset(newOffset);
   };
 
-  const numAscendingData = [...currentExpenses].sort((a, b) =>
-    a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
-  );
+
+
+
 
   var result = [];
-  currentExpenses.reduce(function (res, value) {
+  expenses.reduce(function (res, value) {
     if (!res[value.expenditure_code.id]) {
       res[value.expenditure_code.id] = {
         id: value.expenditure_code.id,
@@ -99,15 +100,34 @@ const SumOfCodes = () => {
     return res;
   }, {});
 
-  const numAscendingSummary = [...result].sort((a, b) =>
-    a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
+  const resultAscendingData = [...result].sort((a, b) =>
+    a.expenditure_code?.seven_digit_code > b.expenditure_code?.seven_digit_code
+      ? 1
+      : -1
   );
 
-  // console.log(currentExpenses);
-  // console.log(result);
   return (
     <div className="main-container">
-      <section className="my-48">
+      <section className="mt-100">
+        <div className="hero min-h-full bg-base-200 py-32 my-24">
+          <div className="hero-content flex-col lg:flex-row">
+            <div className="ml-11">
+              <h2 className="text-5xl font-bold">
+                Current 
+                <span className="text-green-800"> Fund Position </span>
+              </h2>
+              <p className="py-12 text-1xl">
+                Allotments and Current Balance depend on first July to today. In
+                order to get accurate result please select start date always 1st
+                July. First select from date and To date asper your
+                requirements. Then you will see here an automated reports of current fund position
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-48">
         <div className="hero min-h-full bg-base-200 ">
           <div className="hero-content flex-col lg:flex-row">
             <div className="text-center mr-12">
@@ -120,7 +140,7 @@ const SumOfCodes = () => {
               />
             </div>
             <div>
-              <h1 className="text-center">End Date</h1>
+              <h1 className="text-center text-xl">End Date</h1>
               <DayPicker
                 mode="single"
                 selected={enddate}
@@ -136,7 +156,7 @@ const SumOfCodes = () => {
         <div className="overflow-x-auto my-10 py-10">
           <h1 className="text-5xl my-10 text-center"> All Data </h1>
 
-          <table ref={tableRef} className="table table-compact w-full">
+          <table className="table table-compact w-full">
             <thead className="text-center">
               <tr>
                 <th> Ser No</th>
@@ -153,7 +173,7 @@ const SumOfCodes = () => {
               </tr>
             </thead>
             <tbody>
-              {numAscendingData.map((expense, index) => (
+              {currentExpenses.map((expense, index) => (
                 <tr expense={expense} key={expense.slug}>
                   <th className="text-center">{index + 1}</th>
                   <td> {expense.expenditure_code.id}</td>
@@ -187,62 +207,24 @@ const SumOfCodes = () => {
               ))}
             </tbody>
           </table>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Next >"
-            pageCount={pageCount}
-            onPageChange={handlePageClick}
-            marginPagesDisplayed={3}
-            pageRangeDisplayed={5}
-            previousLabel="< Previous"
-            renderOnZeroPageCount={null}
-            containerClassName="pagination"
-            activeLinkClassName="active"
-            previousLinkClassName="page-number"
-            nextLinkClassName="page-number"
-            pageLinkClassName="page-number"
-          />
-        </div>
-      </section>
-
-      <section className="py-24 my-24">
-        <div className="hero min-h-full bg-base-200 py-32 my-24">
-          <div className="hero-content flex-col lg:flex-row">
-            <div className="statistics">
-              
-              <div className="stats bg-primary text-primary-content">
-                <div className="stat">
-                  <div className="stat-title">Current Balance</div>
-                  <div className="stat-value">$ <span>   {numAscendingSummary.expenditure_code?.current_balance}</span>   </div>
-               
-                </div>
-
-                <div className="stat">
-                  <div className="stat-actions">
-                    <button className="btn btn-sm">Allotment</button>
-                    <button className="btn btn-sm">Expense</button>
-                  </div>
-                </div>
-              </div>
-
-
-
-              
-            </div>
-            <div className="ml-11">
-              <h2 className="text-5xl font-bold">
-                Currnet Fund
-                <span className="text-green-800"> Position </span> 
-              </h2>
-              <p className="py-6">
-                First select from date and To date asper your requirements. Then
-                you will see here an automated reports of refunds in this
-                period. And you may acknowledge the following reference letters.
-              </p>
-              <button className="btn btn-primary"> See Bellow</button>
-            </div>
-          </div>
-        </div>
+   
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next >"
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          marginPagesDisplayed={3}
+          pageRangeDisplayed={5}
+          previousLabel="< Previous"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          activeLinkClassName="active"
+          previousLinkClassName="page-number"
+          nextLinkClassName="page-number"
+          pageLinkClassName="page-number"
+        />
+      </div>
+    
       </section>
 
       <section>
@@ -276,7 +258,7 @@ const SumOfCodes = () => {
             </tr>
           </thead>
           <tbody>
-            {numAscendingSummary.map((summary, index) => (
+            {resultAscendingData.map((summary, index) => (
               <tr key={summary.expenditure_code?.id} summary={summary}>
                 <th className="text-center">{index + 1}</th>
                 <td> {summary.id}</td>
@@ -292,7 +274,7 @@ const SumOfCodes = () => {
                 </td>
 
                 <td className="text-right px-10">
-                  {summary.expenditure_code?.progress_of_allotments}
+                  {summary.expenditure_code?.progress_of_allotments?.toFixed(2)}
                 </td>
 
                 <td className="text-right px-10">
@@ -311,7 +293,7 @@ const SumOfCodes = () => {
                   {summary?.your_current_balance?.toFixed(2)}
                 </td> */}
                 <td className="text-right px-10">
-                  {summary.expenditure_code?.current_balance}
+                  {summary.expenditure_code?.current_balance?.toFixed(2)}
                 </td>
               </tr>
             ))}
@@ -322,7 +304,7 @@ const SumOfCodes = () => {
         <h1 className="text-5xl my-10 text-center">
           Cheque Issue Letter to Supplier
         </h1>
-        {numAscendingSummary.map((summary) => (
+        {resultAscendingData.map((summary) => (
           <RefLetter
             key={summary.item_supplier?.id}
             summary={summary}
