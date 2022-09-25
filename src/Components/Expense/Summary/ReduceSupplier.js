@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { DownloadTableExcel } from "react-export-table-to-excel";
+import { SuppliersContext } from "./SumSuppliers";
 
 
-const ReduceSupplier = ({ expenses }) => {
+const ReduceSupplier = () => {
   const tableRef = useRef(null);
+  const expenses = useContext(SuppliersContext);
 
   var result = [];
   expenses.reduce(function (res, value) {

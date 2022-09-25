@@ -1,10 +1,10 @@
-import React, { useEffect, useState, } from "react";
+import React, { createContext, useEffect, useState, } from "react";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import PaginateSupplier from "./PaginateSupplier";
 import ReduceSupplier from "./ReduceSupplier";
-
+export const SuppliersContext = createContext('supplier context');
 
 
 const SumSuppliers = () => {
@@ -50,6 +50,9 @@ const SumSuppliers = () => {
 
   return (
     <div className="main-container">
+ 
+
+     
         <section className="mt-100">
         <div className="hero min-h-full bg-base-200 py-32 my-24">
           <div className="hero-content flex-col lg:flex-row">
@@ -89,12 +92,10 @@ const SumSuppliers = () => {
           </div>
         </div>
       </section>
-      <section><PaginateSupplier expenses={expenses}></PaginateSupplier></section>
-      <section> <ReduceSupplier expenses={expenses}> </ReduceSupplier></section>  
-  
-    
-
-      
+      <SuppliersContext.Provider value={expenses}>
+      <section><PaginateSupplier ></PaginateSupplier></section>
+      <section> <ReduceSupplier > </ReduceSupplier></section>  
+      </SuppliersContext.Provider>
     </div>
   );
 };

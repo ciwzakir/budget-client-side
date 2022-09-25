@@ -96,13 +96,18 @@ const Expense = () => {
         <div className="hero min-h-full bg-base-200 py-32 my-24">
           <div className="hero-content flex-col lg:flex-row">
             <div className="ml-11">
-              <h2 className="text-5xl font-bold"> Return as per
-                <span className="text-green-800 mx-2">
-                   Budget Codes
-                </span>
+              <h2 className="text-5xl font-bold">
+                {" "}
+                Return as per
+                <span className="text-green-800 mx-2">Budget Codes</span>
               </h2>
               <p className="py-12 text-1xl">
-               A summary of codes will be generated.A summary of codes will be generated.A summary of codes will be generated.A summary of codes will be generated.A summary of codes will be generated.A summary of codes will be generated.A summary of codes will be generated.A summary of codes will be generated.A summary of codes will be generated.
+                A summary of codes will be generated.A summary of codes will be
+                generated.A summary of codes will be generated.A summary of
+                codes will be generated.A summary of codes will be generated.A
+                summary of codes will be generated.A summary of codes will be
+                generated.A summary of codes will be generated.A summary of
+                codes will be generated.
               </p>
             </div>
           </div>
@@ -136,8 +141,8 @@ const Expense = () => {
 
       <section>
         <div className="overflow-x-auto my-10 py-10">
-          <h1 className="text-5xl my-10 text-center"> All Expenses </h1>
-          <table ref={tableRef} className="table table-compact w-full">
+          <h1 className="text-5xl my-10 text-center w-3/4"> All Expenses </h1>
+          <table ref={tableRef} className="table w-3/4 text-right">
             <thead className="text-center">
               <tr>
                 <th> Ser No</th>
@@ -153,7 +158,7 @@ const Expense = () => {
                 <th> Updated On</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-right">
               {currentExpenses.map((expense, index) => (
                 <tr expense={expense} key={expense.slug}>
                   <th className="text-center">{index + 1}</th>
@@ -184,25 +189,33 @@ const Expense = () => {
               ))}
             </tbody>
           </table>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Next >"
-            pageCount={pageCount}
-            onPageChange={handlePageClick}
-            marginPagesDisplayed={3}
-            pageRangeDisplayed={5}
-            previousLabel="< Previous"
-            renderOnZeroPageCount={null}
-            containerClassName="pagination"
-            activeLinkClassName="active"
-            previousLinkClassName="page-number"
-            nextLinkClassName="page-number"
-            pageLinkClassName="page-number"
-          />
+          <div className="w-3/4">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Next >"
+              pageCount={pageCount}
+              onPageChange={handlePageClick}
+              marginPagesDisplayed={3}
+              pageRangeDisplayed={5}
+              previousLabel="< Previous"
+              renderOnZeroPageCount={null}
+              containerClassName="pagination"
+              activeLinkClassName="active"
+              previousLinkClassName="page-number"
+              nextLinkClassName="page-number"
+              pageLinkClassName="page-number"
+            />
+          </div>
         </div>
       </section>
       <section>
-        <h1 className="text-5xl my-10 text-center"> Summary asper Codes </h1>
+        <div className="w-3/4">
+          {" "}
+          <h1 className="text-5xl my-5 text-center">
+            {" "}
+            Summary asper Codes{" "}
+          </h1>{" "}
+        </div>
         <DownloadTableExcel
           filename="Simmary Asper Codes"
           sheet="Summaey Codes"
@@ -214,7 +227,7 @@ const Expense = () => {
             </button>
           </div>
         </DownloadTableExcel>
-        <table ref={tableRef} className="table table-compact w-full">
+        <table ref={tableRef} className="table table-compact w-3/4 text-right">
           <thead className="text-center">
             <tr>
               <th> Ser No</th>
@@ -222,7 +235,6 @@ const Expense = () => {
               <th> Full Name</th>
               <th> Budget Code</th>
               <th> Code Heading</th>
-              <th> Total Allotments</th>
               <th> Total Expenditure</th>
               <th> Income Tax</th>
               <th> VAT</th>

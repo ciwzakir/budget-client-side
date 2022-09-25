@@ -27,7 +27,7 @@ const ReportDashboard = () => {
           <li><Link to="/reports/fundposition">Fund Position</Link></li>
           <li><Link to="/reports/suppliers">As Per Suppliers</Link> </li>
           <li><Link to="/reports/certificates">Certificates</Link> </li>
-          {/* <li><Link to="/reports/forwarding">Cheque Forwarding</Link> </li> */}
+          <li><Link to="/reports/forwarding">Forwarding</Link> </li>
           <li><Link to="acknowbgt">Ack Budget</Link> </li>
           <li><Link to="ackrefund">Act Bgt Refund</Link>  </li>
           <li><Link to="backend">Add More</Link>  </li>

@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { SuppliersContext } from "./SumSuppliers";
 
 
-const PaginateSupplier = ({ expenses }) => {
+const PaginateSupplier = () => {
+  const expenses = useContext(SuppliersContext)
   const tableRef = useRef(null);
   const [currentExpenses, setCurrentExpenses] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -23,7 +25,7 @@ const PaginateSupplier = ({ expenses }) => {
   const numAscendingData = [...currentExpenses].sort((a, b) =>
     a.item_supplier?.name > b.item_supplier?.name ? 1 : -1
   );
-  // console.log(expenses);
+  console.log(expenses);
   return (
     <div className="overflow-x-auto my-10  ml-48 py-10">
       <h1 className="text-5xl my-10 text-center w-2/3"> All Suppliers Info </h1>

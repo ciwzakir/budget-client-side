@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, createContext } from "react";
 import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import BillBody from "./BillDetails/BillBody";
 import BillFooter from "./BillDetails/BillFooter";
 import BillHeader from "./BillDetails/BillHeader";
 import "./Single.css";
+export const BillContext = createContext("bill context");
 
 const SingleDetails = () => {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle : 'Print Now',
-    onAfterPrint: alert('Printed Successfully')
-
+    documentTitle: "Print Now",
+    // onAfterPrint: alert('Printed Successfully')
   });
   const { detailOfId } = useParams();
   const [expense, SetExpense] = useState({});
@@ -24,17 +24,18 @@ const SingleDetails = () => {
   }, [detailOfId]);
 
   return (
-    <div className="wholecomponent">
-    
-      <button onClick={handlePrint} className="ml-48">Print this out!</button>
-
-
-      <div id="cont-bill" className="container mx-auto " ref={componentRef}  >
-        <BillHeader expense={expense} key={expense.id}></BillHeader>
-        <BillBody expense={expense} key={expense.id}></BillBody>
-        <BillFooter expense={expense} key={expense.id}></BillFooter>
+    <BillContext.Provider value={expense}>
+      <div className="wholecomponent">
+        <button onClick={handlePrint} className="ml-96 btn btn-outline">
+          Print this out!
+        </button>
+        <div id="cont-bill" className="container mx-auto " ref={componentRef}>
+          <BillHeader></BillHeader>
+          <BillBody></BillBody>
+          <BillFooter></BillFooter>
+        </div>
       </div>
-    </div>
+    </BillContext.Provider>
   );
 };
 

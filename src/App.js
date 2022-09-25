@@ -31,10 +31,10 @@ import SumOfCodes from "./Components/Expense/Summary/SumOfCodes";
 import AckAllotment from "./Components/Expense/Summary/AckAllotment";
 import AckRefunds from "./Components/Expense/Summary/AckRefunds";
 import Backend from "./Components/Expense/Summary/Backend";
-import Pronoun from "./Components/Educations/Grammar/Chapte-1/Pronouns";
-import EducationDashboard from "./Pages/Dashboard/Education/EducationDashboard";
-import Pronouns from "./Components/Educations/Grammar/Chapte-1/Pronouns";
-import Noun from "./Components/Educations/Grammar/Chapte-1/Noun";
+import Forwardings from "./Components/Expense/Summary/Forwardings";
+
+
+
 
 function App() {
   return (
@@ -99,6 +99,7 @@ function App() {
              <Route path="fundposition" element={<SumOfCodes/>}> </Route>
              <Route path="suppliers" element={<SumSuppliers/>}> </Route>
              <Route path="certificates" element={<Certificate/>}> </Route>
+             <Route path="forwarding" element={<Forwardings/>}> </Route>
              <Route path="acknowbgt" element={<AckAllotment/>}> </Route>
              <Route path="ackrefund" element={<AckRefunds/>}> </Route>
              <Route path="backend" element={<Backend/>}> </Route>
@@ -135,8 +136,10 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer></Footer>
-    </div>
 
+    
+    </div>
+ 
   );
 }
 
