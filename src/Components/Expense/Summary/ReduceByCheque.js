@@ -3,12 +3,13 @@ import { DownloadTableExcel } from "react-export-table-to-excel";
 import { SuppliersContext } from "./SumSuppliers";
 
 
-const ReduceSupplier = () => {
+const ReduceByCheque = () => {
   const tableRef = useRef(null);
   const expenses = useContext(SuppliersContext);
 
   var result = [];
-  expenses.reduce(function (res, value) {
+  expenses.filter((expense) => expense.is_cheque === true)
+  .reduce(function (res, value) {
     if (!res[value.item_supplier.id]) {
       res[value.item_supplier.id] = {
         id: value.item_supplier.id,
@@ -35,7 +36,7 @@ const ReduceSupplier = () => {
   return (
     <div className="ml-48">
       <h1 className="text-5xl my-10 text-center w-2/3">
-        Summary including Cash Payment
+        Summary of  Payment maid through cheque
       </h1>
       <DownloadTableExcel
         filename="Simmary Asper Supplier"
@@ -88,9 +89,10 @@ const ReduceSupplier = () => {
           ))}
         </tbody>
       </table>
+
    
     </div>
   );
 };
 
-export default ReduceSupplier;
+export default ReduceByCheque;

@@ -20,8 +20,15 @@ const EducationDashboard = () => {
       <div className="drawer-side mt-11 bg-drawer">
         <label for="dashboard-sidebar" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content">
+          <li><Link to="/study/clause">Clause</Link></li>
+          <li><Link to="/study/article">Articles</Link></li>
+          <li><Link to="/study/prepo">Preposition</Link></li>
+          <li><Link to="/study/voice">Voice Change</Link></li>
+          <li><Link to="/study/syntax">Syntax/Correction</Link></li>
           <li><Link to="/study">Pronoun</Link> </li>
           <li><Link to="/study/noun">Noun</Link></li>
+          <li><Link to="/study/tense">Tense</Link></li>
+          <li><Link to="/study/seqtense">Sequence of Tense</Link></li>
         </ul>
       </div>
     </div>

@@ -3,8 +3,6 @@ import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import { DownloadTableExcel } from "react-export-table-to-excel";
-import ReactPaginate from "react-paginate";
-
 import SingleForwardings from "./SingleForwardings";
 export const ForwardingsContext = createContext("forwardings context");
 
@@ -50,28 +48,15 @@ const Forwardings = () => {
       .then((data) => setExpenses(data));
   }, [startdate, enddate]);
 
-  const [currentExpenses, setCurrentExpenses] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 50;
 
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentExpenses(expenses.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(expenses.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, expenses]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % expenses.length;
-    setItemOffset(newOffset);
-  };
 
   var result = [];
-  currentExpenses.reduce(function (res, value) {
+  expenses.filter((expense) => expense.is_cheque === true)
+  .reduce(function (res, value) {
     if (!res[value.item_supplier.id]) {
       res[value.item_supplier.id] = {
         id: value.item_supplier.id,
-        transactions: value.transactions,
+        transactions:{},
         total_exp: 0,
         total_tds: 0,
         total_vds: 0,
@@ -80,6 +65,7 @@ const Forwardings = () => {
       result.push(res[value.item_supplier.id]);
     }
     res[value.item_supplier.id].item_supplier = value?.item_supplier;
+    res[value.item_supplier.id].transactions = value?.transactions ;
     res[value.item_supplier.id].total_exp += value?.total_exp;
     res[value.item_supplier.id].total_tds += value?.total_tds;
     res[value.item_supplier.id].total_vds += value?.total_vds;
@@ -175,8 +161,8 @@ const Forwardings = () => {
 
       <section className="my-24">
         <h1 className="text-5xl my-10 text-center w-2/3"> Forwardings (Under Maintenance)</h1>
-        {numAscendingSummary.map((summary) => (
-          <ForwardingsContext.Provider value={summary}>
+        {numAscendingSummary.map((single) => (
+          <ForwardingsContext.Provider value={single}>
             <SingleForwardings></SingleForwardings>
           </ForwardingsContext.Provider>
         ))}

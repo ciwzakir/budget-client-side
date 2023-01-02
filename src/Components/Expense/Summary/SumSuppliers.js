@@ -3,7 +3,8 @@ import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import PaginateSupplier from "./PaginateSupplier";
-import ReduceSupplier from "./ReduceSupplier";
+import ReduceByCheque from "./ReduceByCheque";
+import ReduceByCash from "./ReduceByCash";
 export const SuppliersContext = createContext('supplier context');
 
 
@@ -49,10 +50,7 @@ const SumSuppliers = () => {
   }, [startdate, enddate]);
 
   return (
-    <div className="main-container">
- 
-
-     
+    <div className="main-container">    
         <section className="mt-100">
         <div className="hero min-h-full bg-base-200 py-32 my-24">
           <div className="hero-content flex-col lg:flex-row">
@@ -93,8 +91,9 @@ const SumSuppliers = () => {
         </div>
       </section>
       <SuppliersContext.Provider value={expenses}>
-      <section><PaginateSupplier ></PaginateSupplier></section>
-      <section> <ReduceSupplier > </ReduceSupplier></section>  
+      <PaginateSupplier ></PaginateSupplier>
+      <ReduceByCheque></ReduceByCheque>
+      <ReduceByCash></ReduceByCash>
       </SuppliersContext.Provider>
     </div>
   );

@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import ReactPaginate from "react-paginate";
+import { useReactToPrint } from "react-to-print";
 
 const AckAllotment = () => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Print Now",
+  });
   const [startdate, setStartdate] = useState(new Date());
   const [enddate, setEnddate] = useState(new Date());
 
@@ -116,8 +122,13 @@ const AckAllotment = () => {
         </div>
       </section>
 
-      <section className="my-48">
-        <div className="overflow-x-auto  py-10 w-1/2 ml-24">
+      <section className="my-48 text-left">
+        <div className="print">
+          <button onClick={handlePrint} className="ml-24 btn btn-outline">
+            Print this out!
+          </button>
+        </div>
+        <div className="overflow-x-auto  mx-24 w-full pr-36 py-24" ref={componentRef}>
           <p>
             Read More Book Store <br />
             24, Crosby Lane <br />
@@ -130,13 +141,17 @@ const AckAllotment = () => {
           <h1 className="text-1xl my-7">
             Subject: Acknowledge of budget approval letters..
           </h1>
-          <p>
-            Sir, <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, ex
-            placeat quod minima inventore minus qui hic nobis atque eum. Non
-            quam accusantium corporis facilis sed voluptatum suscipit minima
-            nesciunt ullam? Velit ut reiciendis dolore sed natus nulla tempora
-            pariatur!
+          <p>Sir,</p>
+
+          <p className="text-justify">
+            We would like to inform that, we have received your approved letter
+            in time.We would like to inform that, we have received your approved
+            letter in time.We would like to inform that, we have received your
+            approved letter in time.We would like to inform that, we have
+            received your approved letter in time.We would like to inform that,
+            we have received your approved letter in time.We would like to
+            inform that, we have received your approved letter in time. We have
+            received the undermentioned budget letters.
           </p>
           <br />
           <table className="table table-compact ">
@@ -173,22 +188,22 @@ const AckAllotment = () => {
             <br />
             Signature
           </p>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Next >"
-            pageCount={pageCount}
-            onPageChange={handlePageClick}
-            marginPagesDisplayed={3}
-            pageRangeDisplayed={5}
-            previousLabel="< Previous"
-            renderOnZeroPageCount={null}
-            containerClassName="pagination"
-            activeLinkClassName="active"
-            previousLinkClassName="page-number"
-            nextLinkClassName="page-number"
-            pageLinkClassName="page-number"
-          />
         </div>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next >"
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          marginPagesDisplayed={3}
+          pageRangeDisplayed={5}
+          previousLabel="< Previous"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          activeLinkClassName="active"
+          previousLinkClassName="page-number"
+          nextLinkClassName="page-number"
+          pageLinkClassName="page-number"
+        />
       </section>
     </div>
   );

@@ -70,7 +70,7 @@ const MasterBills = () => {
     navigate(`/reports/${id}`);
   };
 
-  console.log(currentExpenses);
+  // console.log(currentExpenses);
 
   return (
     <div className="main-container">

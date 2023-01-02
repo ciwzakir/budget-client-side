@@ -32,6 +32,16 @@ import AckAllotment from "./Components/Expense/Summary/AckAllotment";
 import AckRefunds from "./Components/Expense/Summary/AckRefunds";
 import Backend from "./Components/Expense/Summary/Backend";
 import Forwardings from "./Components/Expense/Summary/Forwardings";
+import EducationDashboard from "./Pages/Dashboard/Education/EducationDashboard";
+import Clause from "./Components/Educations/Grammar/Clause";
+import Pronouns from "./Components/Educations/Grammar/Pronouns";
+import Tense from "./Components/Educations/Grammar/Tense";
+import Noun from "./Components/Educations/Grammar/Noun";
+import Article from "./Components/Educations/Grammar/Article";
+import Preposition from "./Components/Educations/Grammar/Preposition";
+import VoiceChange from "./Components/Educations/Grammar/VoiceChange";
+import Syntax from "./Components/Educations/Grammar/Syntax";
+import SequenceOfTense from "./Components/Educations/Grammar/SequenceOfTense";
 
 
 
@@ -105,7 +115,7 @@ function App() {
              <Route path="backend" element={<Backend/>}> </Route>
            
         </Route> 
-         {/* <Route
+         <Route
               path="/study"
               element={
                 <RequireAuth>
@@ -114,8 +124,15 @@ function App() {
               }
             >
              <Route index element={<Pronouns/>}></Route>
+             <Route path="clause" element={<Clause />}> </Route>
+             <Route path="article" element={<Article />}> </Route>
+             <Route path="prepo" element={<Preposition />}> </Route>
+             <Route path="voice" element={<VoiceChange />}> </Route>
              <Route path="noun" element={<Noun />}> </Route>
-        </Route>  */}
+             <Route path="tense" element={<Tense />}> </Route>
+             <Route path="syntax" element={<Syntax />}> </Route>
+             <Route path="seqtense" element={<SequenceOfTense />}> </Route>
+        </Route> 
 
         <Route
           path="/orders"

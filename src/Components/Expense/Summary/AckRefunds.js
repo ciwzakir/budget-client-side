@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import ReactPaginate from "react-paginate";
+import { useReactToPrint } from "react-to-print";
 
 const AckRefunds = () => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Print Now",
+  });
   const [startdate, setStartdate] = useState(new Date());
   const [enddate, setEnddate] = useState(new Date());
 
@@ -84,7 +90,7 @@ const AckRefunds = () => {
                 <p className="py-6">
                   First select from date and To date asper your requirements.
                   Then you will see here an automated reports of refunds in this
-                  period. And you may acknowledge the following reference
+                  period. And you may acknowledge the following reference refund
                   letters.
                 </p>
                 <button className="btn btn-primary"> See Bellow</button>
@@ -119,7 +125,12 @@ const AckRefunds = () => {
       </section>
 
       <section className="my-24">
-        <div className="refund-body mt-48 ml-24 mr-48">
+        <div className="print">
+          <button onClick={handlePrint} className="ml-24 btn btn-outline my-10">
+            Print refund refund letter
+          </button>
+        </div>
+        <div className="refund-body mx-24 w-full pr-36 py-24" ref={componentRef}>
           <p>
             Read More Book Store <br />
             24, Crosby Lane <br />
@@ -131,15 +142,19 @@ const AckRefunds = () => {
           </p>
           <h1 className="text-1xl my-7">
             Subject: Acknowledge of
-            <span className="text-primary">refunds</span> letters
+            <span className="text-red-700 mx-1">refunds</span> refund letters
           </h1>
-          <p>
-            Sir, <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, ex
-            placeat quod minima inventore minus qui hic nobis atque eum. Non
-            quam accusantium corporis facilis <br /> voluptatum suscipit minima
-            nesciunt ullam? Velit ut reiciendis dolore sed natus nulla tempora
-            pariatur!
+          <p>Sir,</p>
+          <p className="text-justify">
+            We would like to inform that, we have received your approved refund
+            refund letter in time. We would like to inform that, we have
+            received your approved refund letter in time. We would like to
+            inform that, we have received your approved refund letter in time.
+            We would like to inform that, we have received your approved refund
+            letter in time. We would like to inform that, we have received your
+            approved refund letter in time. We would like to inform that, we
+            have received your approved refund letter in time. We have received
+            the undermentioned budget refunds letters.
           </p>
           <br />
           <table className="table table-compact ">
@@ -177,22 +192,22 @@ const AckRefunds = () => {
             <br />
             Signature
           </p>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Next >"
-            pageCount={pageCount}
-            onPageChange={handlePageClick}
-            marginPagesDisplayed={3}
-            pageRangeDisplayed={5}
-            previousLabel="< Previous"
-            renderOnZeroPageCount={null}
-            containerClassName="pagination"
-            activeLinkClassName="active"
-            previousLinkClassName="page-number"
-            nextLinkClassName="page-number"
-            pageLinkClassName="page-number"
-          />
         </div>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next >"
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          marginPagesDisplayed={3}
+          pageRangeDisplayed={5}
+          previousLabel="< Previous"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          activeLinkClassName="active"
+          previousLinkClassName="page-number"
+          nextLinkClassName="page-number"
+          pageLinkClassName="page-number"
+        />
       </section>
     </div>
   );

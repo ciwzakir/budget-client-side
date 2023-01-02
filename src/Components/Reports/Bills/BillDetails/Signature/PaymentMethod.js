@@ -14,18 +14,18 @@ const PaymentMethod = () => {
               <u> PAID BY CHEQUE</u>
             </h5>
             <ul>
-              <li>Sign : ............................</li>
+              <li className='mt-7'>Sign : ............................</li>
               <li>CDC : ............................</li>
               <li>Date : ............................</li>
             </ul>
           </div>
         ) : (
           <div className="text-left">
-            <h5 className="py-type-h sign-margin">
+            <h5 className="sign-margin">
               
-              <u>CASH RECEIVED BY</u>
+              <u className='ml-7'>CASH RECEIVED BY</u>
             </h5>
-            <ul>
+            <ul className='mt-7'>
               <li>Sign : ...........................</li>
               <li>Name : .......................</li>
               <li>Rank : ..........................</li>

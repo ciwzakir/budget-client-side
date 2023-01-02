@@ -38,11 +38,11 @@ const Header = () => {
             <Link to="/reports">Reports</Link>
           </li>
         </>
-        {/* <>
+        <>
           <li>
-            <Link to="/study">My Leisure</Link>
+            <Link to="/study">My Preparation</Link>
           </li>
-        </> */}
+        </>
       </li>
 
       <li>
